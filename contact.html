@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get a Quote — Iships General Trading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800;900&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap nav-in">
+    <a href="index.html" class="brand"><span class="mk">I<span>SHIPS</span></span></a>
+    <div class="nav-links">
+      <a href="index.html#divisions">Divisions</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Trade Desk</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Request a Quote</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO (dark) — clean, no photo, amber ambient glow -->
+<header class="page-hero" style="background:var(--bg) radial-gradient(900px 600px at 65% 50%, rgba(232,115,43,.09), transparent 65%);min-height:52vh">
+  <div class="wrap page-hero-in">
+    <div class="eyebrow on-dark rv">Trade Desk · Iships General Trading</div>
+    <h1 class="rv">Get in <span>touch.</span></h1>
+    <p class="sub rv">Tell us what you're buying, selling, or shipping. We respond the same business day — no automated replies, no runaround.</p>
+  </div>
+</header>
+
+<!-- CONTACT LAYOUT (light) -->
+<section class="contact-wrap">
+  <div class="wrap">
+    <div class="contact-layout">
+
+      <!-- LEFT: Contact Info -->
+      <div>
+        <div class="contact-info-head">
+          <div class="eyebrow rv">Contact Details</div>
+          <h2 class="rv">Talk to us<br><span>directly.</span></h2>
+          <p class="lead rv">We're a small, focused team. When you reach out, you talk to someone who actually knows the trade — not a call centre.</p>
+        </div>
+
+        <div class="cd-block rv">
+          <div class="cd-label">Location</div>
+          <div class="cd-val">Dubai, United Arab Emirates</div>
+        </div>
+        <div class="cd-block rv">
+          <div class="cd-label">Phone &amp; WhatsApp</div>
+          <div class="cd-val">+971 ___ ____</div>
+        </div>
+        <div class="cd-block rv">
+          <div class="cd-label">Email</div>
+          <div class="cd-val">info@iships.ae</div>
+        </div>
+        <div class="cd-block rv">
+          <div class="cd-label">Trade Hours</div>
+          <div class="cd-val">Sunday – Thursday<br>08:00 – 18:00 GST</div>
+        </div>
+        <div class="cd-block rv">
+          <div class="cd-label">Response Time</div>
+          <div class="cd-val">Same business day — we don't leave enquiries sitting.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Inquiry Form -->
+      <div class="rv">
+        <div class="iq-form">
+          <div class="iq-form-head">
+            <h3>Quote &amp; Inquiry Form</h3>
+            <p>Fill in the details below and our trade desk will come back to you with pricing, availability, or a freight quote within one business day.</p>
+          </div>
+
+          <div id="form-notice" class="form-notice"></div>
+
+          <form id="iq-form" action="/api/inquiries" method="POST" novalidate>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+              </div>
+              <div class="form-field">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@company.com" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label for="phone">Phone / WhatsApp</label>
+                <input type="tel" id="phone" name="phone" placeholder="+971 ___ ____">
+              </div>
+              <div class="form-field">
+                <label for="division">Division</label>
+                <select id="division" name="division" required>
+                  <option value="" disabled selected>Select a division</option>
+                  <option value="Scrap Trading">Scrap Trading</option>
+                  <option value="Spare Parts">Spare Parts</option>
+                  <option value="Import / Export">Import / Export</option>
+                  <option value="Other">Other / General</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="message">Your Enquiry</label>
+              <textarea id="message" name="message" placeholder="Describe what you need — metal type and grade, part number, cargo origin and destination, quantity, timeline..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn" style="width:100%;justify-content:center;padding-top:18px;padding-bottom:18px;font-size:.82rem">Send Enquiry →</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY REACH OUT (dark) -->
+<section class="dark-band">
+  <div class="wrap">
+    <div class="dh" style="text-align:center;max-width:680px;margin:0 auto 56px">
+      <div class="eyebrow on-dark rv">What happens next</div>
+      <h2 class="rv" style="margin:0 auto;text-align:center">You send it.<br>We <span>handle it.</span></h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-item rv">
+        <div class="sn">01</div>
+        <h3>You Submit</h3>
+        <p>Fill out the form above or send us an email or WhatsApp directly. Include as much detail as you have — we'll work with whatever you give us.</p>
+      </div>
+      <div class="step-item rv">
+        <div class="sn">02</div>
+        <h3>We Respond</h3>
+        <p>A member of our trade team responds the same business day with a quote, lead time, or a request for any missing details.</p>
+      </div>
+      <div class="step-item rv">
+        <div class="sn">03</div>
+        <h3>We Execute</h3>
+        <p>Once agreed, we move fast — collection, shipping, customs clearance, and settlement all handled in-house. No chasing required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (dark) -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <span class="brand"><span class="mk" style="color:var(--bone)">I<span>SHIPS</span></span></span>
+        <p class="foot-about">A Dubai general trading house dealing in scrap, spare parts and global import &amp; export. Licensed &amp; compliant.</p>
+      </div>
+      <div>
+        <h4>Divisions</h4>
+        <ul>
+          <li><a href="scrap.html">Scrap Trading</a></li>
+          <li><a href="spare-parts.html">Spare Parts</a></li>
+          <li><a href="import-export.html">Import &amp; Export</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Trade Desk</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Dubai, U.A.E</li>
+          <li>+971 ___ ____</li>
+          <li>info@iships.ae</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Iships General Trading LLC</span>
+      <span>Dubai · U.A.E</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
