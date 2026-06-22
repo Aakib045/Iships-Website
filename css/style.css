@@ -345,3 +345,27 @@ nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .dh{margin-bottom:40px}
   .sec-head{margin-bottom:40px}
 }
+
+/* ══ MOBILE NAV CLEARANCE & SPACING FIXES (≤ 767px) ════════════════
+   Desktop layout (≥ 768px) is untouched — all rules below are mobile-only.
+   ═══════════════════════════════════════════════════════════════════ */
+@media(max-width:767px){
+
+  /* Bugs 1 & 3 — padding-top ceiling prevents tall text stacks from rising
+     under the 82px fixed nav. align-items:flex-end still anchors content at
+     the bottom; the padding just caps how high that content can climb. */
+  .hero      { padding-top:100px }
+  .page-hero { padding-top:100px; min-height:68vh }
+
+  /* Bug 4 — anchor-link scroll: scroll-margin-top offsets #hash navigation
+     so section tops stop 90px from the viewport top (just below the nav). */
+  .sec,.about,.why,.dark-band,
+  .contact-wrap,.story-wrap,.cta { scroll-margin-top:90px }
+
+  /* Bug 4 — section heading breathing room: on phones the existing 90px top
+     padding leaves only 8px of clearance below the 82px nav bar when a
+     section is at the top of the visible area. 110px gives a comfortable gap. */
+  .sec       { padding-top:110px; padding-bottom:100px }
+  .why       { padding-top:110px; padding-bottom:100px }
+  .dark-band { padding-top:110px; padding-bottom:100px }
+}
