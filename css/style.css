@@ -66,7 +66,7 @@ nav.solid .nav-links a.active{color:var(--amber)}
 
 /* ── MARQUEE (amber) ─────────────────────────────── */
 .marquee{background:var(--amber);color:#0A0A0B;overflow:hidden}
-.mq{display:flex;white-space:nowrap;animation:scroll 28s linear infinite}
+.mq{display:flex;white-space:nowrap;animation:scroll 14s linear infinite}
 @keyframes scroll{to{transform:translateX(-50%)}}
 .mq span{font-family:'Archivo';font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.04em;padding:15px 30px;display:flex;align-items:center;gap:30px}
 .mq span::after{content:"●";font-size:.5rem}
@@ -80,7 +80,8 @@ nav.solid .nav-links a.active{color:var(--amber)}
 .st .v{font-family:'Archivo';font-weight:900;font-size:3.6rem;line-height:1;color:var(--ink)}
 .st .v span{color:var(--amber-deep)}
 .st .k{font-family:'Archivo';font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:10px}
-@media(max-width:780px){.stats-in{grid-template-columns:repeat(2,1fr);gap:40px 0}.st{padding:0 24px}.st:nth-child(2){border-right:none}}
+@media(max-width:780px){.stats-in{grid-template-columns:repeat(2,1fr);gap:40px 0}.st{padding:0 20px}.st:nth-child(2){border-right:none}.st:nth-child(odd){padding-left:0}.st .v{font-size:2.8rem}}
+@media(max-width:480px){.st .v{font-size:2.2rem}.st{padding:0 12px}}
 
 /* ── DIVISIONS (light bg + dark image cards) ─────── */
 .sec{padding:120px 0}
