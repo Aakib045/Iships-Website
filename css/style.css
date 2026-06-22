@@ -66,7 +66,7 @@ nav.solid .nav-links a.active{color:var(--amber)}
 
 /* ── MARQUEE (amber) ─────────────────────────────── */
 .marquee{background:var(--amber);color:#0A0A0B;overflow:hidden}
-.mq{display:flex;white-space:nowrap;animation:scroll 14s linear infinite}
+.mq{display:flex;white-space:nowrap;animation:scroll 7s linear infinite}
 @keyframes scroll{to{transform:translateX(-50%)}}
 .mq span{font-family:'Archivo';font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.04em;padding:15px 30px;display:flex;align-items:center;gap:30px}
 .mq span::after{content:"●";font-size:.5rem}
@@ -369,4 +369,7 @@ nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45
   .sec       { padding-top:110px; padding-bottom:100px }
   .why       { padding-top:110px; padding-bottom:100px }
   .dark-band { padding-top:110px; padding-bottom:100px }
+
+  /* Ship stays in frame on tall/narrow screens — shift crop window down */
+  .hero-bg video { object-position:50% 80% !important }
 }
