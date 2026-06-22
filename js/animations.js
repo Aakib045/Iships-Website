@@ -109,36 +109,75 @@
         { scale: 1.08, duration: 13, ease: 'none' }
       );
     }
+
+    // ── Scroll-out: pin hero, slide all text left and fade, video stays full-size ──
+    // Desktop only — mobile (< 768px) shows normal hero, no effect
+    if (!window.matchMedia('(max-width:767px)').matches) {
+      const heroIn = heroEl.querySelector('.hero-in');
+
+      const slideTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: heroEl,
+          start: 'top top',
+          end: '+=600',
+          pin: true,
+          anticipatePin: 1,
+          scrub: 1
+        }
+      });
+
+      // Slide the entire text block left and fade — video is untouched
+      if (heroIn) {
+        slideTl.to(heroIn, { x: -160, opacity: 0, ease: 'none', duration: 1 }, 0);
+      }
+    }
   }
 
 
   // ═══════════════════════════════════════════════════════════════════
-  // 2. SECTION REVEALS — ScrollTrigger.batch groups visible elements
+  // 2. SECTION REVEALS — rotate-in on desktop, fade-up on mobile
   // ═══════════════════════════════════════════════════════════════════
-  // Collect all .rv elements that are NOT inside the hero header
   const revealEls = gsap.utils.toArray('.rv').filter(el => !el.closest('.hero'));
+  const isMobile  = window.matchMedia('(max-width: 767px)').matches;
 
-  // Set initial invisible state for all of them upfront
-  gsap.set(revealEls, { opacity: 0, y: 24 });
-
-  // Batch: elements that enter the viewport within 100ms of each other
-  // are animated together with a stagger — creates natural section-wide
-  // reveals without manual per-section targeting.
-  ScrollTrigger.batch(revealEls, {
-    onEnter: batch => {
-      gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        duration: 0.78,
-        ease: 'power2.out',
-        stagger: { each: 0.09 },
-        overwrite: 'auto'
-      });
-    },
-    // Fires each time an element re-enters (scroll up then back down);
-    // since targets are already at opacity:1 it's a visual no-op.
-    start: 'top 84%'
-  });
+  if (isMobile) {
+    // Mobile: gentle fade-up only, no rotation
+    gsap.set(revealEls, { opacity: 0, y: 24 });
+    ScrollTrigger.batch(revealEls, {
+      onEnter: batch => {
+        gsap.to(batch, {
+          opacity: 1, y: 0,
+          duration: 0.78,
+          ease: 'power2.out',
+          stagger: { each: 0.09 },
+          overwrite: 'auto'
+        });
+      },
+      start: 'top 84%'
+    });
+  } else {
+    // Desktop: subtle rotate-in from bottom-left — 6° + small y offset
+    gsap.set(revealEls, {
+      opacity: 0,
+      y: 18,
+      rotation: 6,
+      transformOrigin: 'bottom left'
+    });
+    ScrollTrigger.batch(revealEls, {
+      onEnter: batch => {
+        gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          rotation: 0,
+          duration: 0.85,
+          ease: 'power3.out',
+          stagger: { each: 0.09 },
+          overwrite: 'auto'
+        });
+      },
+      start: 'top 84%'
+    });
+  }
 
 
   // ═══════════════════════════════════════════════════════════════════

@@ -32,6 +32,16 @@ nav.solid .brand .mk{color:var(--ink)}
 .nav-links{display:flex;gap:36px;font-family:'Archivo';font-weight:600;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;color:var(--bone-dim);transition:color .4s}
 nav.solid .nav-links{color:var(--muted)}
 .nav-links a:hover{color:var(--amber)}
+
+/* ── NAV LAMP GLOW (active / hover) ─────────────────── */
+.nav-links a{position:relative}
+.nav-links a::after{content:'';position:absolute;left:50%;bottom:-6px;width:100%;height:2px;background:var(--amber);border-radius:2px;transform:translateX(-50%) scaleX(0);transform-origin:center;opacity:0;transition:transform .32s cubic-bezier(.2,.7,.2,1),opacity .28s;box-shadow:0 0 10px 2px rgba(232,115,43,.5),0 0 24px 6px rgba(232,115,43,.18);pointer-events:none}
+.nav-links a:hover::after{transform:translateX(-50%) scaleX(1);opacity:.6}
+.nav-links a.active{color:var(--amber-lite)}
+nav.solid .nav-links a.active{color:var(--amber)}
+.nav-links a.active::after{transform:translateX(-50%) scaleX(1);opacity:1}
+@media(prefers-reduced-motion:reduce){.nav-links a::after{transition:none}}
+
 .nav-cta{font-family:'Archivo';font-weight:700;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;background:var(--amber);color:#0A0A0B;padding:13px 24px;transition:.35s}
 .nav-cta:hover{background:var(--amber-lite)}
 @media(max-width:920px){.nav-links{display:none}}
@@ -252,3 +262,86 @@ footer{border-top:1px solid var(--line-d);padding:72px 0 40px;background:var(--b
 .form-notice.success{background:rgba(232,115,43,.1);border:1px solid var(--line-amber);color:var(--amber-deep)}
 .form-notice.error{background:rgba(200,94,30,.07);border:1px solid rgba(200,94,30,.25);color:var(--amber-deep)}
 @media(max-width:860px){.contact-layout{grid-template-columns:1fr;gap:48px}.contact-wrap{padding:90px 0}.iq-form{padding:32px 24px}.form-row{grid-template-columns:1fr}}
+
+/* ── HAMBURGER / MOBILE NAV ──────────────────────── */
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:5px;
+  width:40px;
+  height:40px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:4px;
+  flex-shrink:0;
+  margin-left:8px;
+}
+.nav-toggle span{
+  display:block;
+  width:24px;
+  height:2px;
+  background:var(--bone);
+  border-radius:1px;
+  transition:transform .3s cubic-bezier(.2,.7,.2,1),opacity .25s;
+  transform-origin:center;
+}
+nav.solid .nav-toggle span{background:var(--ink)}
+nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+nav.nav-open .nav-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
+nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(max-width:920px){
+  .nav-toggle{display:flex}
+  .nav-cta{display:none}
+  .nav-links.open{
+    display:flex;
+    position:fixed;
+    top:82px;left:0;right:0;bottom:0;
+    background:rgba(10,10,11,.97);
+    flex-direction:column;
+    align-items:flex-start;
+    gap:0;
+    padding:0 40px 40px;
+    z-index:98;
+    overflow-y:auto;
+  }
+  .nav-links.open a{
+    padding:20px 0;
+    border-bottom:1px solid var(--line-d);
+    width:100%;
+    font-size:.92rem;
+    letter-spacing:.1em;
+    color:var(--bone-dim);
+  }
+  .nav-links.open a::after{display:none}
+  .nav-links.open a:hover{color:var(--amber)}
+  .nav-links.open a.active{color:var(--amber-lite)}
+}
+
+/* ── HERO MOBILE STACK ───────────────────────────── */
+@media(max-width:767px){
+  .hero-row{flex-direction:column;align-items:flex-start;gap:24px;margin-top:20px}
+  .hero p{max-width:100%;font-size:1rem}
+  .hero-cta{flex-direction:column;max-width:360px}
+}
+
+/* ── SMALL SCREEN ADDITIONS ──────────────────────── */
+@media(max-width:520px){
+  .foot-grid{grid-template-columns:1fr}
+  .about-in{padding:70px 0}
+  .story-wrap{padding:70px 0}
+  .contact-wrap{padding:70px 0}
+  .cta{padding:90px 0}
+  .stats{padding:60px 0}
+}
+@media(max-width:480px){
+  .page-hero{padding-bottom:48px}
+  .page-hero-in .hero-cta{flex-direction:column;max-width:360px}
+  .iq-form{padding:24px 16px}
+  .steps-grid{margin-top:36px}
+  .dh{margin-bottom:40px}
+  .sec-head{margin-bottom:40px}
+}
