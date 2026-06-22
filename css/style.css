@@ -50,6 +50,8 @@ nav.solid .nav-links a.active{color:var(--amber)}
 .hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;padding-bottom:80px;background:var(--bg)}
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-bg img{opacity:.48}
+.hero-vid--mobile{display:none}
+@media(max-width:767px){.hero-vid--desktop{display:none}.hero-vid--mobile{display:block}}
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,11,.5),rgba(10,10,11,.1) 30%,rgba(10,10,11,.92)),radial-gradient(900px 500px at 75% 30%,rgba(232,115,43,.16),transparent 60%)}
 .hero-in{position:relative;z-index:1;width:100%;color:var(--bone)}
 .hero h1{font-family:'Archivo';font-weight:900;font-size:clamp(3.6rem,12vw,9.5rem);line-height:.86;text-transform:uppercase;letter-spacing:-.03em;margin-top:22px}
