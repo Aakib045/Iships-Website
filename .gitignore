@@ -18,3 +18,9 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Large media — never commit video files
+videos/
+*.mp4
+*.mov
+*.avi
