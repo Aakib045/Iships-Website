@@ -76,16 +76,52 @@ if (!window.gsap) {
   document.querySelectorAll('.count').forEach(el => cio.observe(el));
 }
 
-// Contact form — shows inline confirmation; replace preventDefault with real POST when backend is live
+// Contact form — POST to live backend
 const iqForm = document.getElementById('iq-form');
 if (iqForm) {
-  iqForm.addEventListener('submit', e => {
+  iqForm.addEventListener('submit', async function (e) {
     e.preventDefault();
+
     const notice = document.getElementById('form-notice');
-    notice.className = 'form-notice success';
-    notice.textContent = 'Thanks — we\'ll be in touch within 24 hours.';
+    const btn    = iqForm.querySelector('button[type="submit"]');
+    const origLabel = btn.textContent;
+
+    // Reset notice, enter loading state
+    notice.style.display = 'none';
+    notice.className = 'form-notice';
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const payload = {
+      name:     iqForm.elements['name'].value.trim(),
+      email:    iqForm.elements['email'].value.trim(),
+      phone:    iqForm.elements['phone'].value.trim(),
+      division: iqForm.elements['division'].value,
+      message:  iqForm.elements['message'].value.trim()
+    };
+
+    try {
+      const res = await fetch('https://iships-backend-production.up.railway.app/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        notice.className = 'form-notice success';
+        notice.textContent = 'Enquiry sent — we\'ll be in touch within one business day.';
+        iqForm.reset();
+      } else {
+        throw new Error('status ' + res.status);
+      }
+    } catch (_) {
+      notice.className = 'form-notice error';
+      notice.textContent = 'Something went wrong. Please try again or email us at info@iships.ae.';
+    }
+
     notice.style.display = 'block';
-    iqForm.reset();
+    btn.disabled = false;
+    btn.textContent = origLabel;
     notice.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   });
 }
