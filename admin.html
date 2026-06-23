@@ -333,6 +333,8 @@
     .main-area {
       margin-left: var(--sidebar-w);
       height: 100vh;
+      flex: 1;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -459,7 +461,7 @@
     /* ── Stat cards ── */
     .stat-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
       gap: 14px;
       margin-bottom: 32px;
     }
@@ -932,6 +934,34 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    .stat-card.clickable {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .stat-card.clickable:hover {
+      border-color: var(--amber);
+      box-shadow: 0 4px 20px rgba(232,115,43,.14);
+    }
+
+    .stat-card.clickable .stat-sub {
+      color: var(--amber-dp);
+    }
+
+    .filter-status-bar {
+      display: none;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--amber-dp);
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      background: rgba(232,115,43,.07);
+      border-left: 3px solid var(--amber);
+    }
+
     /* ═══════════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════════ */
@@ -1066,25 +1096,25 @@
             <div class="stat-value" id="d-week">—</div>
             <div class="stat-sub">Last 7 days</div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card clickable" data-division="Scrap">
             <div class="stat-label">Scrap Trading</div>
             <div class="stat-value" id="d-scrap">—</div>
-            <div class="stat-sub">By division</div>
+            <div class="stat-sub">Filter inquiries ↗</div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card clickable" data-division="Spare Parts">
             <div class="stat-label">Spare Parts</div>
             <div class="stat-value" id="d-spare">—</div>
-            <div class="stat-sub">By division</div>
+            <div class="stat-sub">Filter inquiries ↗</div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card clickable" data-division="Import-Export">
             <div class="stat-label">Import / Export</div>
             <div class="stat-value" id="d-impexp">—</div>
-            <div class="stat-sub">By division</div>
+            <div class="stat-sub">Filter inquiries ↗</div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card clickable" data-division="Other">
             <div class="stat-label">Other</div>
             <div class="stat-value" id="d-other">—</div>
-            <div class="stat-sub">By division</div>
+            <div class="stat-sub">Filter inquiries ↗</div>
           </div>
         </div>
 
@@ -1159,6 +1189,8 @@
             <button class="btn-ghost" id="refresh-btn">&#8635; Refresh</button>
           </div>
         </div>
+
+        <div class="filter-status-bar" id="filter-status"></div>
 
         <div id="inquiry-list-wrap">
           <div class="state-msg"><div class="icon">⏳</div><p>Loading inquiries…</p></div>
@@ -1266,6 +1298,20 @@
   navDashboard.addEventListener('click', function () { switchView('dashboard'); });
   navInquiries.addEventListener('click', function () { switchView('inquiries'); });
   viewAllLink.addEventListener('click', function () { switchView('inquiries'); });
+
+  /* ── Division card → filtered inquiries ───────────── */
+  function setDivFilter(division) {
+    filterRow.querySelectorAll('.filter-btn').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.filter === division);
+    });
+    activeFilter = division;
+    switchView('inquiries');
+    applyFilters();
+  }
+
+  document.querySelectorAll('.stat-card[data-division]').forEach(function (card) {
+    card.addEventListener('click', function () { setDivFilter(card.dataset.division); });
+  });
 
   /* ── Mobile sidebar ───────────────────────────────── */
   function openSidebar()  { sidebar.classList.add('open'); sidebarOverlay.classList.add('visible'); }
@@ -1476,6 +1522,18 @@
         var hay = [i.name, i.email, i.message, i.division].join(' ').toLowerCase();
         return hay.includes(searchQuery);
       });
+    }
+
+    var statusEl = document.getElementById('filter-status');
+    if (statusEl) {
+      if (activeFilter === 'all') {
+        statusEl.style.display = 'none';
+        statusEl.textContent = '';
+      } else {
+        var label = activeFilter === 'unread' ? 'Unread' : activeFilter;
+        statusEl.textContent = 'Showing ' + filtered.length + ' ' + label + (filtered.length === 1 ? ' inquiry' : ' inquiries');
+        statusEl.style.display = 'block';
+      }
     }
 
     renderInquiries(filtered);
