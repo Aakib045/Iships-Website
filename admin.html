@@ -1165,6 +1165,66 @@
       .settings-grid { grid-template-columns: 1fr; }
       .settings-field { border-right: none; border-bottom: 1px solid var(--line); }
     }
+
+    /* ═══════════════════════════════════════════
+       CHANGE PASSWORD VIEW
+    ═══════════════════════════════════════════ */
+    .chpw-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      max-width: 480px;
+    }
+
+    .chpw-card-header {
+      padding: 16px 22px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .chpw-card-title {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: .74rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .chpw-body {
+      padding: 28px 28px 24px;
+    }
+
+    .chpw-success {
+      display: none;
+      background: rgba(39,174,96,.1);
+      border: 1px solid rgba(39,174,96,.35);
+      color: #1e8449;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 11px 16px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .chpw-success.visible { display: block; }
+
+    .chpw-error {
+      display: none;
+      background: #FEF2F2;
+      border: 1px solid #FCA5A5;
+      color: var(--red);
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 11px 16px;
+      margin-bottom: 20px;
+    }
+
+    .chpw-error.visible { display: block; }
   </style>
 </head>
 <body>
@@ -1237,6 +1297,11 @@
       <div class="nav-item" id="nav-settings" data-view="settings">
         <span class="nav-icon">⚙</span>
         Site Settings
+      </div>
+
+      <div class="nav-item" id="nav-change-password" data-view="change-password">
+        <span class="nav-icon">⚷</span>
+        Change Password
       </div>
     </nav>
 
@@ -1452,6 +1517,57 @@
         </div>
       </div><!-- /view-settings -->
 
+      <!-- ── Change Password view ── -->
+      <div class="view" id="view-change-password">
+        <div class="view-eyebrow">Security</div>
+        <div class="view-title">Change Password</div>
+
+        <div class="chpw-card">
+          <div class="chpw-card-header">
+            <div class="chpw-card-title">Update Admin Password</div>
+          </div>
+          <div class="chpw-body">
+            <div class="chpw-success" id="chpw-success">&#10003; Password changed successfully. Use your new password the next time you log in.</div>
+            <div class="chpw-error" id="chpw-error"></div>
+
+            <div class="field">
+              <label for="chpw-current">Current Password</label>
+              <div class="password-wrap">
+                <input type="password" id="chpw-current" autocomplete="current-password">
+                <button type="button" class="btn-pw-toggle chpw-toggle" data-target="chpw-current" aria-label="Show password">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12a18.9 18.9 0 0 1 5.06-6.06"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="chpw-new">New Password</label>
+              <div class="password-wrap">
+                <input type="password" id="chpw-new" autocomplete="new-password">
+                <button type="button" class="btn-pw-toggle chpw-toggle" data-target="chpw-new" aria-label="Show password">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12a18.9 18.9 0 0 1 5.06-6.06"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="chpw-confirm">Confirm New Password</label>
+              <div class="password-wrap">
+                <input type="password" id="chpw-confirm" autocomplete="new-password">
+                <button type="button" class="btn-pw-toggle chpw-toggle" data-target="chpw-confirm" aria-label="Show password">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12a18.9 18.9 0 0 1 5.06-6.06"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <button class="btn-save" id="chpw-submit-btn">Change Password</button>
+          </div>
+        </div>
+      </div><!-- /view-change-password -->
+
     </div><!-- /main-content -->
   </main>
 </div><!-- /app-screen -->
@@ -1482,6 +1598,19 @@
     });
   })();
 
+  /* ── Change Password field toggles ───────────────── */
+  document.querySelectorAll('.chpw-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var input = document.getElementById(btn.getAttribute('data-target'));
+      var svgs  = btn.querySelectorAll('svg');
+      var showing = input.type === 'text';
+      input.type = showing ? 'password' : 'text';
+      svgs[0].style.display = showing ? '' : 'none';
+      svgs[1].style.display = showing ? 'none' : '';
+      btn.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+    });
+  });
+
   /* ── DOM refs ─────────────────────────────────────── */
   const loginScreen    = document.getElementById('login-screen');
   const appScreen      = document.getElementById('app-screen');
@@ -1499,8 +1628,9 @@
   const topbarClock    = document.getElementById('topbar-clock');
   const navDashboard   = document.getElementById('nav-dashboard');
   const navInquiries   = document.getElementById('nav-inquiries');
-  const navSettings    = document.getElementById('nav-settings');
-  const navBadge       = document.getElementById('nav-badge');
+  const navSettings        = document.getElementById('nav-settings');
+  const navChangePassword  = document.getElementById('nav-change-password');
+  const navBadge           = document.getElementById('nav-badge');
   const viewAllLink    = document.getElementById('view-all-link');
   const listWrap       = document.getElementById('inquiry-list-wrap');
   const activityList   = document.getElementById('activity-list');
@@ -1557,7 +1687,7 @@
   }
 
   /* ── Navigation ───────────────────────────────────── */
-  var TITLES = { dashboard: 'Dashboard', inquiries: 'Inquiries', settings: 'Site Settings' };
+  var TITLES = { dashboard: 'Dashboard', inquiries: 'Inquiries', settings: 'Site Settings', 'change-password': 'Change Password' };
 
   function switchView(name) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -1572,6 +1702,7 @@
   navDashboard.addEventListener('click', function () { switchView('dashboard'); });
   navInquiries.addEventListener('click', function () { switchView('inquiries'); });
   navSettings.addEventListener('click', function () { switchView('settings'); });
+  navChangePassword.addEventListener('click', function () { switchView('change-password'); });
   viewAllLink.addEventListener('click', function () { switchView('inquiries'); });
 
   /* ── Division card → filtered inquiries ───────────── */
@@ -1989,6 +2120,94 @@
   }
 
   document.getElementById('save-settings-btn').addEventListener('click', saveSettings);
+
+  /* ── Change Password ──────────────────────────────── */
+  document.getElementById('chpw-submit-btn').addEventListener('click', changePassword);
+
+  async function changePassword() {
+    var btn       = document.getElementById('chpw-submit-btn');
+    var successEl = document.getElementById('chpw-success');
+    var errorEl   = document.getElementById('chpw-error');
+    var curInput  = document.getElementById('chpw-current');
+    var newInput  = document.getElementById('chpw-new');
+    var cfmInput  = document.getElementById('chpw-confirm');
+
+    successEl.classList.remove('visible');
+    errorEl.classList.remove('visible');
+
+    var curPw = curInput.value;
+    var newPw = newInput.value;
+    var cfmPw = cfmInput.value;
+
+    if (!curPw) {
+      errorEl.textContent = 'Current password is required.';
+      errorEl.classList.add('visible');
+      return;
+    }
+    if (newPw.length < 8) {
+      errorEl.textContent = 'New password must be at least 8 characters.';
+      errorEl.classList.add('visible');
+      return;
+    }
+    if (newPw !== cfmPw) {
+      errorEl.textContent = 'New password and confirmation do not match.';
+      errorEl.classList.add('visible');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Updating…';
+
+    try {
+      var res = await fetch(API + '/api/admin/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ currentPassword: curPw, newPassword: newPw })
+      });
+
+      var body;
+      if (res.status === 401) {
+        try { body = await res.json(); } catch (_) { body = {}; }
+        var hint = ((body && body.message) || '').toLowerCase();
+        if (hint && (hint.includes('token') || hint.includes('jwt') || hint.includes('expired') || hint.includes('unauthorized'))) {
+          token = null;
+          showLogin('Session expired. Please log in again.');
+          return;
+        }
+        errorEl.textContent = 'Current password is incorrect.';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      if (res.status === 422) {
+        try { body = await res.json(); } catch (_) { body = {}; }
+        errorEl.textContent = (body && body.message) ? body.message : 'New password is invalid (minimum 8 characters).';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      if (!res.ok) {
+        try { body = await res.json(); } catch (_) { body = {}; }
+        throw new Error((body && body.message) ? body.message : 'Server error (' + res.status + ')');
+      }
+
+      curInput.value = '';
+      newInput.value = '';
+      cfmInput.value = '';
+      successEl.classList.add('visible');
+      setTimeout(function () { successEl.classList.remove('visible'); }, 8000);
+
+    } catch (err) {
+      errorEl.textContent = err.message || 'Failed to change password. Please try again.';
+      errorEl.classList.add('visible');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Change Password';
+    }
+  }
 
   /* ── Init ─────────────────────────────────────────── */
   showLogin();
