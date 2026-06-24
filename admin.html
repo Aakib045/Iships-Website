@@ -109,6 +109,39 @@
 
     .field input:focus { border-color: var(--amber); }
 
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 44px;
+    }
+
+    .btn-pw-toggle {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #6b7280;
+      padding: 0;
+      transition: color .2s;
+    }
+
+    .btn-pw-toggle:hover { color: var(--amber); }
+
+    .btn-pw-toggle svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
     .btn-login {
       display: inline-flex;
       align-items: center;
@@ -1010,7 +1043,22 @@
       </div>
       <div class="field">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" autocomplete="current-password" required>
+        <div class="password-wrap">
+          <input type="password" id="password" name="password" autocomplete="current-password" required>
+          <button type="button" class="btn-pw-toggle" id="pw-toggle" aria-label="Show password">
+            <!-- eye icon (shown when password is hidden) -->
+            <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <!-- eye-off icon (shown when password is visible) -->
+            <svg id="icon-eye-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+              <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12a18.9 18.9 0 0 1 5.06-6.06"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </button>
+        </div>
       </div>
       <button type="submit" class="btn-login" id="login-btn">Log In</button>
       <div class="error-msg" id="login-error"></div>
@@ -1211,6 +1259,21 @@
   let allInquiries = [];
   let activeFilter = 'all';
   let searchQuery = '';
+
+  /* ── Password toggle ─────────────────────────────── */
+  (function () {
+    const btn     = document.getElementById('pw-toggle');
+    const input   = document.getElementById('password');
+    const iconOn  = document.getElementById('icon-eye');
+    const iconOff = document.getElementById('icon-eye-off');
+    btn.addEventListener('click', function () {
+      const showing = input.type === 'text';
+      input.type          = showing ? 'password' : 'text';
+      iconOn.style.display  = showing ? '' : 'none';
+      iconOff.style.display = showing ? 'none' : '';
+      btn.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+    });
+  })();
 
   /* ── DOM refs ─────────────────────────────────────── */
   const loginScreen    = document.getElementById('login-screen');
