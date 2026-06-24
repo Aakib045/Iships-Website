@@ -1,3 +1,29 @@
+// Site Settings — fetch once and populate all [data-setting] elements
+(function loadSiteSettings() {
+  fetch('https://iships-backend-production.up.railway.app/api/settings')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (s) {
+      document.querySelectorAll('[data-setting]').forEach(function (el) {
+        var key = el.dataset.setting;
+        var val = (s[key] || '').trim();
+        if (!val) return; // keep hardcoded fallback when field is empty
+        el.textContent = val;
+        if (el.tagName === 'A') {
+          if (key === 'email') {
+            el.href = 'mailto:' + val;
+          } else if (key === 'phone') {
+            el.href = 'tel:' + val.replace(/[^\d+]/g, '');
+          } else if (key === 'whatsapp') {
+            el.href = 'https://wa.me/' + val.replace(/\D/g, '');
+          } else if (key === 'facebook' || key === 'instagram' || key === 'linkedin') {
+            el.href = val;
+          }
+        }
+      });
+    })
+    .catch(function () { /* network error — keep all hardcoded fallbacks */ });
+})();
+
 // Active nav link — detect current page and apply .active
 (function () {
   const file = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
