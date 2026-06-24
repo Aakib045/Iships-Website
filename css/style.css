@@ -68,7 +68,7 @@ nav.solid .nav-links a.active{color:var(--amber)}
 
 /* ── MARQUEE (amber) ─────────────────────────────── */
 .marquee{background:var(--amber);color:#0A0A0B;overflow:hidden}
-.mq{display:flex;white-space:nowrap;animation:scroll 7s linear infinite}
+.mq{display:flex;white-space:nowrap;animation:scroll 7s linear infinite;width:max-content}
 @keyframes scroll{to{transform:translateX(-50%)}}
 .mq span{font-family:'Archivo';font-weight:800;font-size:1.05rem;text-transform:uppercase;letter-spacing:.04em;padding:15px 30px;display:flex;align-items:center;gap:30px}
 .mq span::after{content:"●";font-size:.5rem}
