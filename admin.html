@@ -1025,6 +1025,146 @@
       .btn-ghost { flex: 1; justify-content: center; }
       .stat-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ═══════════════════════════════════════════
+       SITE SETTINGS VIEW
+    ═══════════════════════════════════════════ */
+    .settings-section {
+      background: #fff;
+      border: 1px solid var(--line);
+      margin-bottom: 20px;
+    }
+
+    .settings-section-header {
+      padding: 16px 22px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .settings-section-title {
+      font-family: 'Archivo', sans-serif;
+      font-weight: 800;
+      font-size: .74rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+
+    .settings-field {
+      padding: 20px 22px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .settings-field:last-child { border-bottom: none; }
+
+    .settings-field label {
+      display: block;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .58rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .settings-field input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-size: .88rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .settings-field input:focus { border-color: var(--amber); }
+    .settings-field input:disabled { opacity: .55; }
+
+    .settings-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 4px;
+      padding-bottom: 8px;
+    }
+
+    .btn-save {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--amber);
+      color: #0A0A0B;
+      padding: 13px 28px;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .76rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background .22s;
+      flex-shrink: 0;
+    }
+
+    .btn-save:hover { background: var(--amber-lt); }
+    .btn-save:disabled { opacity: .6; cursor: default; }
+
+    .settings-success {
+      display: none;
+      background: rgba(39,174,96,.1);
+      border: 1px solid rgba(39,174,96,.35);
+      color: #1e8449;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 11px 16px;
+    }
+
+    .settings-success.visible { display: block; }
+
+    .settings-fetch-error {
+      display: none;
+      background: #FEF2F2;
+      border: 1px solid #FCA5A5;
+      color: var(--red);
+      font-size: .82rem;
+      padding: 11px 16px;
+      margin: 16px 22px;
+    }
+
+    .settings-fetch-error.visible { display: block; }
+
+    .settings-save-error {
+      display: none;
+      background: #FEF2F2;
+      border: 1px solid #FCA5A5;
+      color: var(--red);
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 11px 16px;
+    }
+
+    .settings-save-error.visible { display: block; }
+
+    @media (max-width: 768px) {
+      .settings-grid { grid-template-columns: 1fr; }
+      .settings-field { border-right: none; border-bottom: 1px solid var(--line); }
+    }
   </style>
 </head>
 <body>
@@ -1092,6 +1232,11 @@
         <span class="nav-icon">◻</span>
         Inquiries
         <span class="nav-badge" id="nav-badge" style="display:none"></span>
+      </div>
+
+      <div class="nav-item" id="nav-settings" data-view="settings">
+        <span class="nav-icon">⚙</span>
+        Site Settings
       </div>
     </nav>
 
@@ -1245,6 +1390,68 @@
         </div>
       </div><!-- /view-inquiries -->
 
+      <!-- ── Site Settings view ── -->
+      <div class="view" id="view-settings">
+        <div class="view-eyebrow">Configuration</div>
+        <div class="view-title">Site Settings</div>
+
+        <div class="settings-fetch-error" id="settings-fetch-error"></div>
+
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">Contact Details</div>
+          </div>
+          <div class="settings-grid">
+            <div class="settings-field">
+              <label for="s-phone">Phone</label>
+              <input type="text" id="s-phone" name="phone" placeholder="+971 XX XXX XXXX" disabled>
+            </div>
+            <div class="settings-field">
+              <label for="s-whatsapp">WhatsApp</label>
+              <input type="text" id="s-whatsapp" name="whatsapp" placeholder="+971 XX XXX XXXX" disabled>
+            </div>
+            <div class="settings-field">
+              <label for="s-email">Email</label>
+              <input type="text" id="s-email" name="email" placeholder="info@iships.ae" disabled>
+            </div>
+            <div class="settings-field">
+              <label for="s-address">Address</label>
+              <input type="text" id="s-address" name="address" placeholder="Dubai, UAE" disabled>
+            </div>
+            <div class="settings-field">
+              <label for="s-tradeHours">Trade Hours</label>
+              <input type="text" id="s-tradeHours" name="tradeHours" placeholder="Mon–Fri, 09:00–18:00" disabled>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">Social Links</div>
+          </div>
+          <div class="settings-grid">
+            <div class="settings-field">
+              <label for="s-facebook">Facebook URL</label>
+              <input type="text" id="s-facebook" name="facebook" placeholder="https://facebook.com/…" disabled>
+            </div>
+            <div class="settings-field">
+              <label for="s-instagram">Instagram URL</label>
+              <input type="text" id="s-instagram" name="instagram" placeholder="https://instagram.com/…" disabled>
+            </div>
+            <div class="settings-field">
+              <label for="s-linkedin">LinkedIn URL</label>
+              <input type="text" id="s-linkedin" name="linkedin" placeholder="https://linkedin.com/in/…" disabled>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-actions">
+          <button class="btn-save" id="save-settings-btn" disabled>Save Changes</button>
+          <div class="settings-success" id="settings-success">&#10003; Settings Updated</div>
+          <div class="settings-save-error" id="settings-save-error"></div>
+        </div>
+      </div><!-- /view-settings -->
+
     </div><!-- /main-content -->
   </main>
 </div><!-- /app-screen -->
@@ -1292,6 +1499,7 @@
   const topbarClock    = document.getElementById('topbar-clock');
   const navDashboard   = document.getElementById('nav-dashboard');
   const navInquiries   = document.getElementById('nav-inquiries');
+  const navSettings    = document.getElementById('nav-settings');
   const navBadge       = document.getElementById('nav-badge');
   const viewAllLink    = document.getElementById('view-all-link');
   const listWrap       = document.getElementById('inquiry-list-wrap');
@@ -1349,17 +1557,21 @@
   }
 
   /* ── Navigation ───────────────────────────────────── */
+  var TITLES = { dashboard: 'Dashboard', inquiries: 'Inquiries', settings: 'Site Settings' };
+
   function switchView(name) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById('view-' + name).classList.add('active');
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById('nav-' + name).classList.add('active');
-    topbarTitle.textContent = name === 'dashboard' ? 'Dashboard' : 'Inquiries';
+    topbarTitle.textContent = TITLES[name] || name;
+    if (name === 'settings') loadSettings();
     closeSidebar();
   }
 
   navDashboard.addEventListener('click', function () { switchView('dashboard'); });
   navInquiries.addEventListener('click', function () { switchView('inquiries'); });
+  navSettings.addEventListener('click', function () { switchView('settings'); });
   viewAllLink.addEventListener('click', function () { switchView('inquiries'); });
 
   /* ── Division card → filtered inquiries ───────────── */
@@ -1694,6 +1906,89 @@
       alert('Failed to update: ' + (err.message || 'Unknown error'));
     }
   }
+
+  /* ── Site Settings ───────────────────────────────── */
+  var SETTINGS_FIELDS = ['phone', 'whatsapp', 'email', 'address', 'tradeHours', 'facebook', 'instagram', 'linkedin'];
+
+  function setSettingsInputs(disabled) {
+    SETTINGS_FIELDS.forEach(function (k) {
+      var el = document.getElementById('s-' + k);
+      if (el) el.disabled = disabled;
+    });
+    var saveBtn = document.getElementById('save-settings-btn');
+    if (saveBtn) saveBtn.disabled = disabled;
+  }
+
+  async function loadSettings() {
+    var fetchErr = document.getElementById('settings-fetch-error');
+    fetchErr.classList.remove('visible');
+    document.getElementById('settings-success').classList.remove('visible');
+    document.getElementById('settings-save-error').classList.remove('visible');
+    setSettingsInputs(true);
+
+    try {
+      var res = await fetch(API + '/api/settings');
+      if (!res.ok) throw new Error('Server error (' + res.status + ')');
+      var data = await res.json();
+      SETTINGS_FIELDS.forEach(function (k) {
+        var el = document.getElementById('s-' + k);
+        if (el) el.value = data[k] || '';
+      });
+    } catch (err) {
+      fetchErr.textContent = 'Could not load settings: ' + (err.message || 'Unknown error');
+      fetchErr.classList.add('visible');
+    } finally {
+      setSettingsInputs(false);
+    }
+  }
+
+  async function saveSettings() {
+    var saveBtn   = document.getElementById('save-settings-btn');
+    var successEl = document.getElementById('settings-success');
+    var saveErr   = document.getElementById('settings-save-error');
+
+    successEl.classList.remove('visible');
+    saveErr.classList.remove('visible');
+    saveBtn.disabled = true;
+    saveBtn.innerHTML = '<span class="spinner"></span> Saving…';
+
+    var payload = {};
+    SETTINGS_FIELDS.forEach(function (k) {
+      var el = document.getElementById('s-' + k);
+      if (el) payload[k] = el.value.trim();
+    });
+
+    try {
+      var res = await fetch(API + '/api/settings', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.status === 401 || res.status === 403) {
+        token = null;
+        showLogin('Session expired. Please log in again.');
+        return;
+      }
+
+      if (!res.ok) throw new Error('Server error (' + res.status + ')');
+
+      successEl.classList.add('visible');
+      setTimeout(function () { successEl.classList.remove('visible'); }, 4000);
+
+    } catch (err) {
+      saveErr.textContent = err.message || 'Failed to save settings.';
+      saveErr.classList.add('visible');
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'Save Changes';
+    }
+  }
+
+  document.getElementById('save-settings-btn').addEventListener('click', saveSettings);
 
   /* ── Init ─────────────────────────────────────────── */
   showLogin();
